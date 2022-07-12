@@ -1,0 +1,5 @@
+name: EbriusPlayerTime2
+version: '${project.version}'
+main: com.icesoup.ebrius.Main
+api-version: 1.19
+load: STARTUP
