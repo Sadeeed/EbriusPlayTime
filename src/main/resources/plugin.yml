@@ -1,5 +1,10 @@
-name: EbriusPlayerTime2
+name: EbriusPlayerTime
+author: icesoup
 version: '${project.version}'
 main: com.icesoup.ebrius.Main
 api-version: 1.19
 load: STARTUP
+commands:
+  playtime:
+    description: Shows the playtime of a player!
+    usage: /playtime
