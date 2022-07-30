@@ -1,5 +1,6 @@
 package com.icesoup.ebrius.commands;
 
+import com.icesoup.ebrius.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.Statistic;
 import org.bukkit.command.Command;
@@ -8,8 +9,12 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Playtime implements CommandExecutor {
+
+    Main plugin;
 
     private String getTimeString(Integer seconds) {
         int days = (int) TimeUnit.SECONDS.toDays(seconds);
@@ -31,6 +36,13 @@ public class Playtime implements CommandExecutor {
             Player player = (Player) sender;
             if (args.length > 0) {
                 player.sendMessage("Hello: " + args[0]);
+                Player player1 = plugin.getServer().getPlayer(args[0]);
+                if (player1 != null) {
+                    plugin.getLogger().log(Level.ALL, player1.getName());
+                } else {
+                    plugin.getLogger().log(Level.ALL, "potty");
+                }
+
             } else {
                 int secondsPlayed = player.getStatistic(Statistic.PLAY_ONE_MINUTE) / 20;
                 System.out.println(secondsPlayed);
