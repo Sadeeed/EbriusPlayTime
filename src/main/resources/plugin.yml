@@ -1,4 +1,4 @@
-name: EbriusPlayerTime
+name: EbriusPlayTime
 author: icesoup
 version: '${project.version}'
 main: com.icesoup.ebrius.Main

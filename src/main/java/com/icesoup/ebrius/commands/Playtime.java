@@ -9,12 +9,15 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+//import java.util.logging.Level;
 
 public class Playtime implements CommandExecutor {
 
     Main plugin;
+
+    public Playtime(Main plugin) {
+        this.plugin = plugin;
+    }
 
     private String getTimeString(Integer seconds) {
         int days = (int) TimeUnit.SECONDS.toDays(seconds);
@@ -30,6 +33,13 @@ public class Playtime implements CommandExecutor {
         }
     }
 
+    private void getPlaytime(Player player, Player sender) {
+        int secondsPlayed = player.getStatistic(Statistic.PLAY_ONE_MINUTE) / 20;
+        System.out.println(secondsPlayed);
+        String timePlayed = ChatColor.AQUA + "Time Played: " + ChatColor.RESET + getTimeString(secondsPlayed);
+        sender.sendMessage(timePlayed);
+    }
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player) {
@@ -38,16 +48,14 @@ public class Playtime implements CommandExecutor {
                 player.sendMessage("Hello: " + args[0]);
                 Player player1 = plugin.getServer().getPlayer(args[0]);
                 if (player1 != null) {
-                    plugin.getLogger().log(Level.ALL, player1.getName());
+                    plugin.getLogger().info(player1.getName());
+                    getPlaytime(player1, player);
                 } else {
-                    plugin.getLogger().log(Level.ALL, "potty");
+                    plugin.getLogger().info("Player not found");
                 }
 
             } else {
-                int secondsPlayed = player.getStatistic(Statistic.PLAY_ONE_MINUTE) / 20;
-                System.out.println(secondsPlayed);
-                String timePlayed = ChatColor.AQUA + "Time Played: " + ChatColor.RESET + getTimeString(secondsPlayed);
-                player.sendMessage(timePlayed);
+                getPlaytime(player, player);
             }
             return true;
         }
